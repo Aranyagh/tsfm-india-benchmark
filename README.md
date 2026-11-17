@@ -21,7 +21,7 @@ A small benchmark of **Chronos-2** (Amazon's pretrained time-series model, used 
 - At a 1-day horizon the gain is small (MASE 0.41 vs 0.43 for naive). At days 5-7 Chronos-2 scores 0.62-0.72 against 0.72-0.83 for the best baseline, though the lead is uneven across days (about 5% at days 3-4).
 - Chronos-2's 10%-90% prediction interval contained the true value 77% of the time (nominal 80%).
 - Four of Chronos-2’s five worst forecasts started on 31 Oct 2019, shortly after Diwali, and the baselines also scored badly on those same cases.
-- Robustness check: only 2.5% of scored days were interpolated (largest shares: Amaravati 15%, Brajrajnagar 10%, Talcher 7%). Scoring on real observations only gives Chronos-2 a MASE of 0.588 vs 0.674 for AutoTheta (gain 0.086, 95% bootstrap range 0.049 to 0.124), so the main conclusion does not depend on interpolated days. Seasonal naive is not included in this check
+- Robustness check: only 2.5% of scored days were interpolated (largest shares: Amaravati 15%, Brajrajnagar 10%, Talcher 7%). Scoring on real observations only gives Chronos-2 a MASE of 0.588 vs 0.674 for AutoTheta (gain 0.086, 95% bootstrap range 0.049 to 0.124), so the main conclusion does not depend on interpolated days. Seasonal naive is not included in this check.
 
 ## Data
 
@@ -45,6 +45,7 @@ A small benchmark of **Chronos-2** (Amazon's pretrained time-series model, used 
 | `forecasts.csv` | Every individual forecast (for plots and per-day analysis) |
 | `results_table.csv` | The summary table above |
 | `main_results.png`, `failure_cases.png` | Figures |
+| `requirements.txt` | Python dependencies |
 | `robustness.csv` | MASE on all scored days vs real-observation days only |
 
 ## How to reproduce
@@ -54,6 +55,7 @@ A small benchmark of **Chronos-2** (Amazon's pretrained time-series model, used 
 3. Upload `city_day.csv` using the folder icon on the left of Colab.
 4. Choose *Runtime → Run all*. The notebook installs its own dependencies in its first cells (`requirements.txt` lists them for running elsewhere). The statistical baselines and Chronos-2 steps take several minutes.
 5. Outputs (`results_all.csv`, `forecasts.csv`, `results_table.csv`, `robustness.csv`, and the two figures) appear in the Colab file panel.
+6. device_map="cuda": No GPU? In the Chronos loading cell, change device_map="cuda" to device_map="cpu" (slower).
 
 ## Failure cases
 
