@@ -1,0 +1,6 @@
+model,mae,mase
+chronos2,16.05,0.59
+autotheta,18.72,0.67
+naive,19.2,0.69
+autoets,21.1,0.76
+seasonal_naive,22.77,0.82
