@@ -55,7 +55,8 @@ A small benchmark of **Chronos-2** (Amazon's pretrained time-series model, used 
 3. Upload `city_day.csv` using the folder icon on the left of Colab.
 4. Choose *Runtime → Run all*. The notebook installs its own dependencies in its first cells (`requirements.txt` lists them for running elsewhere). The statistical baselines and Chronos-2 steps take several minutes.
 5. Outputs (`results_all.csv`, `forecasts.csv`, `results_table.csv`, `robustness.csv`, and the two figures) appear in the Colab file panel.
-6. device_map="cuda": No GPU? In the Chronos loading cell, change device_map="cuda" to device_map="cpu" (slower).
+
+No GPU? In the Chronos loading cell, change `device_map="cuda"` to `device_map="cpu"` (slower).
 
 ## Failure cases
 
