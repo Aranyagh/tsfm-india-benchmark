@@ -19,6 +19,7 @@ Yes, modestly. Chronos-2 reduced MASE by about 12% versus the best statistical b
 - At a 1-day horizon the gain is small (MASE 0.41 vs 0.43 for naive). At days 5-7 Chronos-2 scores 0.62-0.72 against 0.72-0.83 for the best baseline, though the lead is uneven across days (about 5% at days 3-4).
 - Chronos-2's 10%-90% prediction interval contained the true value 77% of the time (nominal 80%).
 - Four of Chronos-2â€™s five worst forecasts started on 31 Oct 2019, shortly after Diwali, and the baselines also scored badly on those same cases.
+- Robustness check: only 2.5% of scored days were interpolated (largest shares: Amaravati 15%, Brajrajnagar 10%, Talcher 7%). Scoring on real observations only gives Chronos-2 a MASE of 0.588 vs 0.674 for AutoTheta (gain 0.086, 95% bootstrap range 0.049 to 0.124), so the main conclusion does not depend on interpolated days. Seasonal naive is not included in this check
 
 ## Data
 
@@ -67,6 +68,7 @@ If the actual line jumps up after the dotted line and all forecasts stay low: â€
 - Only daily PM2.5 with a 7-day horizon.
 - The bootstrap treats cities as independent, but nearby cities (for example Delhi and Gurugram) are probably correlated.
 - Missing values were interpolated over the full series before backtesting, so a gap just before a forecast date may have been filled using values after it. The effect is probably small but was not tested.
+- Missing values were filled by linear interpolation, and the models were given these filled values as history. Interpolated days were also part of the scoring (2.5% of scored days), which a robustness check on observed days only showed to have little effect. Interpolation was done over the full series before backtesting, so a gap just before a forecast date may have been filled using values after it. This effect was not tested.
 
 ## Model credits
 
