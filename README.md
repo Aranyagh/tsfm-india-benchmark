@@ -1,6 +1,5 @@
 # Does a pretrained forecasting model beat standard baselines on Indian air-quality data?
-
-A small benchmark of **Chronos-2** (Amazon's pretrained time-series model, used zero-shot with no training on this data) against standard forecasting methods, on daily PM2.5 data from 16 Indian cities.
+Yes, modestly. Chronos-2 reduced MASE by about 12% versus the best statistical baseline, with most of the gain at longer horizons and in post-monsoon/winter windows. A small benchmark of **Chronos-2** (Amazon's pretrained time-series model, used zero-shot with no training on this data) against standard forecasting methods, on daily PM2.5 data from 16 Indian cities.
 
 ## Main result
 
@@ -17,9 +16,9 @@ A small benchmark of **Chronos-2** (Amazon's pretrained time-series model, used 
 - Chronos-2 beat the best statistical baseline (AutoTheta) by 0.076 MASE (95% bootstrap range over cities: 0.040 to 0.114).
 - It beat all four baselines in **13 of 16 cities**.
 - The gain was concentrated in the post-monsoon and winter test windows (post-monsoon MASE 0.86 vs 1.07 for naive; winter 0.80 vs 0.92). There was no gain in monsoon and summer windows.
-- At a 1-day horizon the gain is small (MASE 0.41 vs 0.43 for naive). It tends to be larger at 5-7 days (0.62-0.72 vs 0.72-0.85 for the best baseline).
+- At a 1-day horizon the gain is small (MASE 0.41 vs 0.43 for naive). At days 5-7 Chronos-2 scores 0.62-0.72 against 0.72-0.83 for the best baseline, though the lead is uneven across days (about 5% at days 3-4).
 - Chronos-2's 10%-90% prediction interval contained the true value 77% of the time (nominal 80%).
-- The worst forecasts for all models clustered at the end of October 2019, shortly after Diwali, so that period is hard for every method, not just Chronos-2.
+- Four of Chronos-2’s five worst forecasts started on 31 Oct 2019, shortly after Diwali, and the baselines also scored badly on those same cases.
 
 ## Data
 
@@ -55,7 +54,7 @@ A small benchmark of **Chronos-2** (Amazon's pretrained time-series model, used 
 
 ![failure cases](failure_cases.png)
 
-[Write 2-3 sentences after you look at the plot. For example: "Forecasts from 31 Oct 2019 missed the post-Diwali rise for all models." For Brajrajnagar on 23 May 2020, only write that Chronos-2 was far off if the actual values were real and not interpolated.]
+If the actual line jumps up after the dotted line and all forecasts stay low: “Four of Chronos-2’s five worst forecasts started on 31 October 2019, shortly after Diwali, when PM2.5 rose sharply. The naive and AutoTheta forecasts also scored badly on those cases, so this looks like a limit of all the methods here, not a Chronos-2 weakness.
 
 ## Limitations
 
@@ -67,6 +66,7 @@ A small benchmark of **Chronos-2** (Amazon's pretrained time-series model, used 
 - Only Chronos-2 gave prediction intervals, so calibration was not compared across models.
 - Only daily PM2.5 with a 7-day horizon.
 - The bootstrap treats cities as independent, but nearby cities (for example Delhi and Gurugram) are probably correlated.
+- Missing values were interpolated over the full series before backtesting, so a gap just before a forecast date may have been filled using values after it. The effect is probably small but was not tested.
 
 ## Model credits
 
